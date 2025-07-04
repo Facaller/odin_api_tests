@@ -6,16 +6,15 @@
     <title>API Test</title>
 </head>
 <body>
-    <img src="#">
-    <script>
-        const img = document.querySelector('img');
-        fetch('https://api.giphy.com/v1/gifs/translate?api_key=TU3kl13JYySh97lnVdvPFpKTlQ4FZyU6&s=fish', {mode: 'cors'})
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(response) {
-                img.src = response.data.images.original.url;
-            });
-    </script>
+    <div class="container">
+        <form class="form-container" id="form" action="">
+            <div class="search-box">
+                <label for="search">Specify GIF</label>
+                <input type="text" name="search" id="search">
+            </div>
+            <div><button class="submit-btn" type="submit" id="submit">Generate new GIF</button></div>
+        </form>
+        <div class="gif-area"><img src="#"></div>
+    </div>
 </body>
 </html>

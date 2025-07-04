@@ -4,6 +4,86 @@
     padding: 0;
 }
 
-html, body {
-    background-color: aqua;
+img {
+    width: fit-content;
+    height: fit-content;
+}
+
+input,
+button {
+    width: 250px;
+    height: 40px;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+input {
+    font-size: 1em;
+    transition: transform 0.2s ease;
+}
+
+button {
+    background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+    background-size: 1400% 1400%;
+    animation: rainbow 8s linear infinite;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+label {
+    font-size: 2em;
+}
+
+input:hover,
+button:hover,
+label:hover {
+    cursor: pointer;
+}
+
+input:hover,
+button:hover {
+    transform: scale(1.05);
+}
+
+.container {
+    display: grid;
+    grid-template-rows: minmax(250px, 1fr) 2fr;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.gif-area {
+    grid-row: 2/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 600px;
 }
