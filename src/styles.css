@@ -45,13 +45,11 @@ label {
     font-size: 2em;
 }
 
-input:hover,
 button:hover,
 label:hover {
     cursor: pointer;
 }
 
-input:hover,
 button:hover {
     transform: scale(1.05);
 }

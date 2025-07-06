@@ -1,15 +1,17 @@
 export class apiScript {
     constructor () {
-        this.input = document.querySelector('#search').value;
-        this.img   = document.querySelector('img');
+        this.input  = document.querySelector('#search');
+        this.img    = document.querySelector('img');
+        this.submit = document.querySelector('#submit');
 
-        this.fetchGif();
+        this.onButtonClick();
     }
 
     fetchGif () {
         const img = this.img;
+        const searchInput = this.addValueToAPI();
         
-        fetch('https://api.giphy.com/v1/gifs/translate?api_key=TU3kl13JYySh97lnVdvPFpKTlQ4FZyU6&s=fish', {mode: 'cors'})
+        fetch(`${searchInput}`, {mode: 'cors'})
             .then(function(response) {
                 return response.json();
             })
@@ -19,8 +21,9 @@ export class apiScript {
     }
 
     captureInput () {
-        const input = this.input;
+        const input = this.input.value;
         const trimmed = input.trim();
+        console.log(trimmed);
 
         if (!trimmed) {
             throw new Error('Please enter a valid search term');
@@ -29,5 +32,21 @@ export class apiScript {
         if (trimmed) {
             return trimmed;
         }
+    }
+
+    addValueToAPI () {
+        const input = this.captureInput();
+        const api = 'https://api.giphy.com/v1/gifs/translate?api_key=TU3kl13JYySh97lnVdvPFpKTlQ4FZyU6&s=';
+
+        return api + input;
+    }
+
+    onButtonClick = () => {
+        const submitBtn = this.submit;
+
+        submitBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.fetchGif();
+        });
     }
 }
