@@ -1,8 +1,9 @@
 export class apiScript {
     constructor () {
-        this.input  = document.querySelector('#search');
-        this.img    = document.querySelector('img');
-        this.submit = document.querySelector('#submit');
+        this.input   = document.querySelector('#search');
+        this.img     = document.querySelector('img');
+        this.submit  = document.querySelector('#submit');
+        this.spinner = document.querySelector('.spinner');
         
         this.floatingInput = '';
         this.onButtonClick();
@@ -14,7 +15,7 @@ export class apiScript {
         const apiKey = 'TU3kl13JYySh97lnVdvPFpKTlQ4FZyU6';
         const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}&limit=25&offset=0&rating=g&lang=en`;
         
-        fetch(url, {mode: 'cors'})
+        return fetch(url, {mode: 'cors'})
             .then(function(response) {
                 return response.json();
             })
@@ -38,7 +39,7 @@ export class apiScript {
         let trimmed = input.trim();
 
         if (!trimmed) {
-            trimmed = 'poop';
+            trimmed = 'cat';
         } 
         
         if (trimmed) {
@@ -55,69 +56,20 @@ export class apiScript {
 
     onButtonClick = () => {
         const submitBtn = this.submit;
+        const spinner   = this.spinner;
 
-        submitBtn.addEventListener('click', (event) => {
+        submitBtn.addEventListener('click', async (event) => {
             event.preventDefault();
-            this.fetchGif();
+
+            submitBtn.disabled = true;
+            submitBtn.classList.add('disable');
+            spinner.classList.remove('hidden');
+
+            await this.fetchGif();
+
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('disable');
+            spinner.classList.add('hidden');
         });
     }
 }
-
-// Step-by-Step Plan
-// 1. HTML Setup
-// First, check your HTML. You'll need:
-
-// A button element (you already have it).
-
-// A spinner element — maybe a <div> or <img> with a spinning animation.
-
-// Keep it hidden by default using CSS (display: none or visibility: hidden).
-
-// 2. Disabling the Button (Before Fetch)
-// Before you call fetch(), you'll want to:
-
-// Set the button to disabled.
-
-// Change its appearance if you want (e.g. greyed out).
-
-// Show the spinner.
-
-// Think of this as your "start loading" state.
-
-// 3. Fetch the GIF
-// You already do this — keep it the same.
-
-// While the fetch is happening, the button will stay disabled and the spinner will be visible.
-
-// 4. After the Fetch is Done (Success or Error)
-// No matter if the fetch succeeds or fails:
-
-// Hide the spinner.
-
-// Re-enable the button so the user can search again.
-
-// This part should happen in both:
-
-// Your .then() (after updating the image), and
-
-// Your .catch() (if there's an error).
-
-// So, you're creating a clear "end loading" state.
-
-// 5. Bonus (Optional)
-// If you want to be fancy:
-
-// Change the button text to "Loading..." temporarily.
-
-// Animate the spinner with CSS.
-
-// Position the spinner over the image or near the button.
-
-// 💡 Tip
-// It’s a good idea to make small helper functions like:
-
-// startLoadingState() – disables the button and shows the spinner.
-
-// endLoadingState() – re-enables and hides the spinner.
-
-// This keeps your main function clean.
